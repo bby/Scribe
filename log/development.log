@@ -1,0 +1,948 @@
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (15.6ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.6ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (3.4ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateIdeas (20091007134829)
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "ideas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "description" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091007134829')[0m
+Migrating to ActsAsTaggableOnMigration (20091007134911)
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TABLE "taggings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_id" integer, "taggable_id" integer, "tagger_id" integer, "tagger_type" varchar(255), "taggable_type" varchar(255), "context" varchar(255), "created_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE INDEX "index_taggings_on_tag_id" ON "taggings" ("tag_id")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE INDEX "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings" ("taggable_id", "taggable_type", "context")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091007134911')[0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("ideas")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mPRAGMA index_list("taggings")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mPRAGMA index_info('index_taggings_on_taggable_id_and_taggable_type_and_context')[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_info('index_taggings_on_tag_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 14:52:54) [GET]
+  [4;36;1mSQL (2.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (5.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NameError (undefined local variable or method `acts_as_taggable' for #<Class:0x16062dc>):
+  app/models/idea.rb:2
+  app/controllers/ideas_controller.rb:5:in `index'
+
+Rendered rescues/_trace (120.5ms)
+Rendered rescues/_request_and_response (36.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 14:55:55) [GET]
+
+RuntimeError (acts_as_taggable_on_steroids has been moved to github: http://github.com/jviney/acts_as_taggable_on_steroids):
+  app/models/idea.rb:2
+  app/controllers/ideas_controller.rb:5:in `index'
+
+Rendered rescues/_trace (257.7ms)
+Rendered rescues/_request_and_response (1.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 14:58:38) [GET]
+  [4;36;1mIdea Load (12.6ms)[0m   [0;1mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 643ms (View: 521, DB: 13) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 14:58:43) [GET]
+Rendering template within layouts/ideas
+Rendering ideas/new
+Completed in 82ms (View: 75, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 14:58:56) [POST]
+  Parameters: {"idea"=>{"title"=>"An idea", "tags"=>"ideas", "description"=>"An idea"}, "commit"=>"Create", "authenticity_token"=>"Suixa2MTnGvLbnyK/DqH01YAHAqjjsK4R57W2jstAug="}
+
+ActiveRecord::AssociationTypeMismatch (Tag(#18512100) expected, got String(#113650)):
+  app/controllers/ideas_controller.rb:43:in `new'
+  app/controllers/ideas_controller.rb:43:in `create'
+
+Rendered rescues/_trace (120.5ms)
+Rendered rescues/_request_and_response (2.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 15:01:18) [GET]
+  [4;35;1mIdea Load (0.4ms)[0m   [0mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 14ms (View: 5, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 15:01:19) [GET]
+Rendering template within layouts/ideas
+Rendering ideas/new
+ERROR: compiling _run_erb_app47views47ideas47new46html46erb RAISED compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tCONSTANT, expecting ')'
+...oncat(( f.label :tags, "'"Tags (seperate with comma ',')" )....
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tSTRING_BEG, expecting ')'
+...ags (seperate with comma ',')" ).to_s); @output_buffer.conca...
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tREGEXP_BEG, expecting kDO or '{' or '('
+...; @output_buffer.concat "<br />\n"
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: unknown regexp option - p
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: unmatched (: />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :tag_list %
+  </
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:18: syntax error, unexpected '<'
+  <p>
+   ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:25: syntax error, unexpected tIDENTIFIER, expecting ')'
+Function body:           def _run_erb_app47views47ideas47new46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<h1>New idea</h1>\n"
+@output_buffer.concat "\n"
+ form_for(@idea) do |f| ; @output_buffer.concat "\n"
+@output_buffer.concat "  "; @output_buffer.concat(( f.error_messages ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :title ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :title ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :description ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_area :description ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :tags, "'"Tags (seperate with comma ',')" ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :tag_list %
+  </p>
+  <p>
+    <%= f.submit 'Create' ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+ end ; @output_buffer.concat "\n"
+@output_buffer.concat "\n"
+@output_buffer.concat(( link_to 'Back', ideas_path ).to_s); @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:26:in `compile!'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:61:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:28:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/template.rb:199:in `render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:343:in `_render_with_layout'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:257:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1250:in `render_for_file'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:951:in `render_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `custom'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `each'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:107:in `respond_to'
+/Users/tomburton/Sites/scribe/app/controllers/ideas_controller.rb:29:in `new'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `perform_action_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:617:in `call_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/flash.rb:146:in `perform_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `process_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:606:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:391:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:386:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/routing/route_set.rb:437:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:121:in `_call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:9:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:28:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/head.rb:9:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/params_parser.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/failsafe.rb:26:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:114:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/reloader.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:108:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/static.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `each'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/log_tailer.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/chunked.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:61:in `process'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/commands/server.rb:111
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tCONSTANT, expecting ')'
+...oncat(( f.label :tags, "'"Tags (seperate with comma ',')" )....
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tSTRING_BEG, expecting ')'
+...ags (seperate with comma ',')" ).to_s); @output_buffer.conca...
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:15: syntax error, unexpected tREGEXP_BEG, expecting kDO or '{' or '('
+...; @output_buffer.concat "<br />\n"
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: unknown regexp option - p
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: unmatched (: />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :tag_list %
+  </
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:18: syntax error, unexpected '<'
+  <p>
+   ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:25: syntax error, unexpected tIDENTIFIER, expecting ')') on line #15 of app/views/ideas/new.html.erb:
+12:     <%= f.text_area :description %>
+13:   </p>
+14:   <p>
+15:     <%= f.label :tags, "'"Tags (seperate with comma ',')" %><br />
+16:     <%= f.text_field :tag_list %
+17:   </p>
+18:   <p>
+
+    app/views/ideas/new.html.erb:26:in `compile!'
+    app/controllers/ideas_controller.rb:29:in `new'
+
+Rendered rescues/_trace (213.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 15:01:29) [GET]
+Rendering template within layouts/ideas
+Rendering ideas/new
+ERROR: compiling _run_erb_app47views47ideas47new46html46erb RAISED compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: syntax error, unexpected '<'
+  </p>
+   ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: unknown regexp option - p
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: unmatched ): /p>
+  <p>
+    <%= f.submit 'Create' ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: syntax error, unexpected $undefined
+@output_buffer.concat "  </p>\n"
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:21: syntax error, unexpected $undefined, expecting ')'
+ end ; @output_buffer.concat "\n"
+                               ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: syntax error, unexpected $undefined, expecting ')'
+@output_buffer.concat "\n"
+                        ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: unterminated string meets end of file
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: syntax error, unexpected $end, expecting ')'
+Function body:           def _run_erb_app47views47ideas47new46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<h1>New idea</h1>\n"
+@output_buffer.concat "\n"
+ form_for(@idea) do |f| ; @output_buffer.concat "\n"
+@output_buffer.concat "  "; @output_buffer.concat(( f.error_messages ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :title ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :title ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :description ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_area :description ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+@output_buffer.concat "  <p>\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.label :tags, "Tags (seperate with comma ',')" ).to_s); @output_buffer.concat "<br />\n"
+@output_buffer.concat "    "; @output_buffer.concat(( f.text_field :tag_list %
+  </p>
+  <p>
+    <%= f.submit 'Create' ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </p>\n"
+ end ; @output_buffer.concat "\n"
+@output_buffer.concat "\n"
+@output_buffer.concat(( link_to 'Back', ideas_path ).to_s); @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22:in `compile!'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:61:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:28:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/template.rb:199:in `render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:343:in `_render_with_layout'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:257:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1250:in `render_for_file'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:951:in `render_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `custom'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `each'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:107:in `respond_to'
+/Users/tomburton/Sites/scribe/app/controllers/ideas_controller.rb:29:in `new'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `perform_action_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:617:in `call_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/flash.rb:146:in `perform_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `process_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:606:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:391:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:386:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/routing/route_set.rb:437:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:121:in `_call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:9:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:28:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/head.rb:9:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/params_parser.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/failsafe.rb:26:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:114:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/reloader.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:108:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/static.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `each'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/log_tailer.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/chunked.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:61:in `process'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/commands/server.rb:111
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:17: syntax error, unexpected '<'
+  </p>
+   ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: unknown regexp option - p
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: unmatched ): /p>
+  <p>
+    <%= f.submit 'Create' ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "  </
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:20: syntax error, unexpected $undefined
+@output_buffer.concat "  </p>\n"
+                              ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:21: syntax error, unexpected $undefined, expecting ')'
+ end ; @output_buffer.concat "\n"
+                               ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: syntax error, unexpected $undefined, expecting ')'
+@output_buffer.concat "\n"
+                        ^
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: unterminated string meets end of file
+/Users/tomburton/Sites/scribe/app/views/ideas/new.html.erb:22: syntax error, unexpected $end, expecting ')') on line #17 of app/views/ideas/new.html.erb:
+14:   <p>
+15:     <%= f.label :tags, "Tags (seperate with comma ',')" %><br />
+16:     <%= f.text_field :tag_list %
+17:   </p>
+18:   <p>
+19:     <%= f.submit 'Create' %>
+20:   </p>
+
+    app/views/ideas/new.html.erb:22:in `compile!'
+    app/controllers/ideas_controller.rb:29:in `new'
+
+Rendered rescues/_trace (55.8ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 15:02:01) [GET]
+Rendering template within layouts/ideas
+Rendering ideas/new
+Completed in 46ms (View: 40, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 15:02:13) [POST]
+  Parameters: {"idea"=>{"title"=>"an idea", "description"=>"an idea", "tag_list"=>"ideas"}, "commit"=>"Create", "authenticity_token"=>"Suixa2MTnGvLbnyK/DqH01YAHAqjjsK4R57W2jstAug="}
+  [4;36;1mIdea Create (14.1ms)[0m   [0;1mINSERT INTO "ideas" ("updated_at", "title", "description", "created_at") VALUES('2009-10-07 14:02:13', 'an idea', 'an idea', '2009-10-07 14:02:13')[0m
+  [4;35;1mTag Load (0.2ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+  [4;36;1mTag Load (0.1ms)[0m   [0;1mSELECT * FROM "tags" WHERE (name LIKE 'ideas') LIMIT 1[0m
+  [4;35;1mTag Load (0.1ms)[0m   [0mSELECT "tags".id FROM "tags" WHERE ("tags"."name" = 'ideas') LIMIT 1[0m
+  [4;36;1mTag Create (0.1ms)[0m   [0;1mINSERT INTO "tags" ("name") VALUES('ideas')[0m
+  [4;35;1mTagging Create (0.2ms)[0m   [0mINSERT INTO "taggings" ("tagger_id", "tag_id", "taggable_type", "taggable_id", "context", "tagger_type", "created_at") VALUES(NULL, 1, 'Idea', 1, NULL, NULL, '2009-10-07 14:02:13')[0m
+Redirected to http://localhost:3000/ideas/1
+Completed in 38ms (DB: 15) | 302 Found [http://localhost/ideas]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:02:13) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+Completed in 176ms (View: 168, DB: 0) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:04:39) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mIdea Load (0.2ms)[0m   [0mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+
+ActionView::TemplateError (undefined method `tag' for #<Idea:0x2615c04>) on line #13 of app/views/ideas/show.html.erb:
+10: 
+11: <ul>
+12: 	<% for tag in @idea.tags %>
+13: 	<li><%= @idea.tag.name.capitalize %></li>
+14: 	<% end %>
+15: </ul>
+16: 
+
+    app/views/ideas/show.html.erb:13
+    app/views/ideas/show.html.erb:12
+    app/controllers/ideas_controller.rb:18:in `show'
+
+Rendered rescues/_trace (54.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:04:47) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mIdea Load (0.2ms)[0m   [0mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 19ms (View: 9, DB: 1) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:06:43) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mIdea Load (0.2ms)[0m   [0mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+ERROR: compiling _run_erb_app47views47ideas47show46html46erb RAISED compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/show.html.erb:13: syntax error, unexpected ')'
+...ink_to tag.name.capitalize,  ).to_s); @output_buffer.concat ...
+                              ^
+Function body:           def _run_erb_app47views47ideas47show46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<p>\n"
+@output_buffer.concat "  <b>Title:</b>\n"
+@output_buffer.concat "  "; @output_buffer.concat((h @idea.title ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "</p>\n"
+@output_buffer.concat "\n"
+@output_buffer.concat "<p>\n"
+@output_buffer.concat "  <b>Description:</b>\n"
+@output_buffer.concat "  "; @output_buffer.concat((h @idea.description ).to_s); @output_buffer.concat "\n"
+@output_buffer.concat "</p>\n"
+@output_buffer.concat "\n"
+@output_buffer.concat "<ul>\n"
+@output_buffer.concat "\t";  for tag in @idea.tags ; @output_buffer.concat "\n"
+@output_buffer.concat "\t<li>"; @output_buffer.concat(( link_to tag.name.capitalize,  ).to_s); @output_buffer.concat "</li>\n"
+@output_buffer.concat "\t";  end ; @output_buffer.concat "\n"
+@output_buffer.concat "</ul>\n"
+@output_buffer.concat "\n"
+@output_buffer.concat "\n"
+@output_buffer.concat(( link_to 'Edit', edit_idea_path(@idea) ).to_s); @output_buffer.concat " |\n"
+@output_buffer.concat(( link_to 'Back', ideas_path ).to_s); @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/tomburton/Sites/scribe/app/views/ideas/show.html.erb:22:in `compile!'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:61:in `compile'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:28:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/template.rb:199:in `render_template'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:260:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:343:in `_render_with_layout'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:257:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1250:in `render_for_file'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:951:in `render_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:135:in `custom'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:179:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `each'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:173:in `respond'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/mime_responds.rb:107:in `respond_to'
+/Users/tomburton/Sites/scribe/app/controllers/ideas_controller.rb:18:in `show'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1331:in `perform_action_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:617:in `call_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:10:in `realtime'
+/Library/Ruby/Gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/flash.rb:146:in `perform_action'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `send'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `process_without_filters'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:606:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:391:in `process'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:386:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/routing/route_set.rb:437:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:121:in `_call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:9:in `cache'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:28:in `call'
+/Library/Ruby/Gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/head.rb:9:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/methodoverride.rb:24:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/params_parser.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/failsafe.rb:26:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `synchronize'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:114:in `call'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/reloader.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:108:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/static.rb:31:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:46:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `each'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `call'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/rails/rack/log_tailer.rb:17:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/content_length.rb:13:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/chunked.rb:15:in `call'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:61:in `process'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+/Library/Ruby/Gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+/Library/Ruby/Gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:34:in `run'
+/Library/Ruby/Gems/1.8/gems/rails-2.3.4/lib/commands/server.rb:111
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/Users/tomburton/Sites/scribe/app/views/ideas/show.html.erb:13: syntax error, unexpected ')'
+...ink_to tag.name.capitalize,  ).to_s); @output_buffer.concat ...
+                              ^) on line #13 of app/views/ideas/show.html.erb:
+10: 
+11: <ul>
+12: 	<% for tag in @idea.tags %>
+13: 	<li><%= link_to tag.name.capitalize,  %></li>
+14: 	<% end %>
+15: </ul>
+16: 
+
+    app/views/ideas/show.html.erb:22:in `compile!'
+    app/controllers/ideas_controller.rb:18:in `show'
+
+Rendered rescues/_trace (143.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:09:56) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 22ms (View: 13, DB: 1) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:10:07) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 14ms (View: 8, DB: 1) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#tagged (for 127.0.0.1 at 2009-10-07 15:10:08) [GET]
+  Parameters: {"tag"=>"ideas"}
+
+NameError (uninitialized constant IdeasController::Article):
+  app/controllers/ideas_controller.rb:89:in `tagged'
+
+Rendered rescues/_trace (37.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:10:25) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 11ms (View: 4, DB: 0) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#tagged (for 127.0.0.1 at 2009-10-07 15:10:27) [GET]
+  Parameters: {"tag"=>"ideas"}
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `published' for #<Class:0x1269f84>):
+  app/controllers/ideas_controller.rb:89:in `tagged'
+
+Rendered rescues/_trace (53.5ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#tagged (for 127.0.0.1 at 2009-10-07 15:10:47) [GET]
+  Parameters: {"tag"=>"ideas"}
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `published' for #<Class:0x2279ec4>):
+  app/controllers/ideas_controller.rb:89:in `tagged'
+
+Rendered rescues/_trace (43.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#tagged (for 127.0.0.1 at 2009-10-07 15:11:20) [GET]
+  Parameters: {"tag"=>"ideas"}
+  [4;36;1mIdea Load (1.0ms)[0m   [0;1mSELECT DISTINCT ideas.* FROM "ideas" INNER JOIN taggings ideas_taggings ON ideas_taggings.taggable_id = ideas.id AND ideas_taggings.taggable_type = 'Idea' INNER JOIN tags ideas_tags ON ideas_tags.id = ideas_taggings.tag_id WHERE ((ideas_tags.name LIKE 'ideas')) [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 20ms (View: 8, DB: 1) | 200 OK [http://localhost/ideas/tagged/ideas]
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateIdeas (20091007134829)
+Migrating to ActsAsTaggableOnMigration (20091007134911)
+Migrating to CreateUsers (20091007143213)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (22.4ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(40), "name" varchar(100) DEFAULT '', "email" varchar(100), "crypted_password" varchar(40), "salt" varchar(40), "created_at" datetime, "updated_at" datetime, "remember_token" varchar(40), "remember_token_expires_at" datetime) [0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE UNIQUE INDEX "index_users_on_login" ON "users" ("login")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091007143213')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("ideas")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("taggings")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mPRAGMA index_info('index_taggings_on_taggable_id_and_taggable_type_and_context')[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_info('index_taggings_on_tag_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_info('index_users_on_login')[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateIdeas (20091007134829)
+Migrating to ActsAsTaggableOnMigration (20091007134911)
+Migrating to CreateUsers (20091007143213)
+Migrating to CreateRoles (20091007143531)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mCREATE TABLE "roles_users" ("user_id" integer, "role_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(40), "authorizable_type" varchar(40), "authorizable_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091007143531')[0m
+  [4;36;1mSQL (2.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mPRAGMA index_list("ideas")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("roles")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("roles_users")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("taggings")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mPRAGMA index_info('index_taggings_on_taggable_id_and_taggable_type_and_context')[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_info('index_taggings_on_tag_id')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tags")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_info('index_users_on_login')[0m
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 15:38:05) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.3ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/ideas
+Rendering ideas/show
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 157ms (View: 121, DB: 1) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 15:58:19) [GET]
+  [4;36;1mIdea Load (4.2ms)[0m   [0;1mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 29ms (View: 19, DB: 4) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:01:33) [GET]
+  [4;36;1mIdea Load (0.8ms)[0m   [0;1mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 123ms (View: 89, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:01:36) [GET]
+  [4;35;1mIdea Load (0.6ms)[0m   [0mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 16ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:01:37) [GET]
+  [4;36;1mIdea Load (0.9ms)[0m   [0;1mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 14ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:01:37) [GET]
+  [4;35;1mIdea Load (0.6ms)[0m   [0mSELECT * FROM "ideas" [0m
+Rendering template within layouts/ideas
+Rendering ideas/index
+Completed in 14ms (View: 7, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:01:50) [GET]
+  [4;36;1mIdea Load (0.6ms)[0m   [0;1mSELECT * FROM "ideas" [0m
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 21ms (View: 13, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2009-10-07 16:02:01) [GET]
+Redirected to http://localhost:3000/
+Completed in 38ms (DB: 0) | 302 Found [http://localhost/logout]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:02:01) [GET]
+  [4;35;1mIdea Load (1.2ms)[0m   [0mSELECT * FROM "ideas" [0m
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 21ms (View: 9, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 16:02:06) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering ideas/show
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags".id = "taggings".tag_id WHERE (("taggings".taggable_type = 'Idea') AND ("taggings".taggable_id = 1)) [0m
+Completed in 54ms (View: 46, DB: 1) | 200 OK [http://localhost/ideas/1]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 16:02:16) [GET]
+Rendering template within layouts/application
+Rendering ideas/new
+Completed in 48ms (View: 33, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:04:11) [GET]
+  [4;36;1mSQL (1.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `paginate' for #<Class:0x2573d50>):
+  app/controllers/ideas_controller.rb:5:in `index'
+
+Rendered rescues/_trace (30.1ms)
+Rendered rescues/_request_and_response (1.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:06:29) [GET]
+  [4;36;1mIdea Load (0.9ms)[0m   [0;1mSELECT * FROM "ideas" LIMIT 10 OFFSET 0[0m
+Rendering template within layouts/application
+Rendering ideas/index
+Rendered ideas/_sidebar (1.1ms)
+Completed in 286ms (View: 279, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 16:06:37) [GET]
+Rendering template within layouts/application
+Rendering ideas/new
+Rendered ideas/_form (6.4ms)
+Rendered ideas/_sidebar (0.2ms)
+Completed in 47ms (View: 32, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 16:06:38) [POST]
+  Parameters: {"idea"=>{"title"=>"", "description"=>""}, "authenticity_token"=>"AdOHB5+Pol3+L7sbFWwwAtZVCLNv8vWTAsGbTjP5cpY="}
+  [4;35;1mIdea Create (1.1ms)[0m   [0mINSERT INTO "ideas" ("updated_at", "title", "description", "created_at") VALUES('2009-10-07 15:06:38', '', '', '2009-10-07 15:06:38')[0m
+Redirected to http://localhost:3000/ideas/2
+Completed in 29ms (DB: 1) | 302 Found [http://localhost/ideas]
+
+
+Processing IdeasController#show (for 127.0.0.1 at 2009-10-07 16:06:38) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mIdea Load (0.2ms)[0m   [0;1mSELECT * FROM "ideas" WHERE ("ideas"."id" = 2) [0m
+Rendering template within layouts/application
+Rendering ideas/show
+Rendered ideas/_sidebar (0.1ms)
+Completed in 139ms (View: 130, DB: 0) | 200 OK [http://localhost/ideas/2]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 16:07:35) [POST]
+  Parameters: {"idea"=>{"title"=>"", "description"=>""}, "authenticity_token"=>"AdOHB5+Pol3+L7sbFWwwAtZVCLNv8vWTAsGbTjP5cpY="}
+Rendering template within layouts/application
+Rendering ideas/new
+Rendered ideas/_form (13.3ms)
+Rendered ideas/_sidebar (0.1ms)
+Completed in 34ms (View: 18, DB: 0) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 16:08:34) [POST]
+  Parameters: {"idea"=>{"title"=>"", "description"=>""}, "authenticity_token"=>"AdOHB5+Pol3+L7sbFWwwAtZVCLNv8vWTAsGbTjP5cpY="}
+Rendering template within layouts/application
+Rendering ideas/new
+Rendered ideas/_form (3.6ms)
+Rendered ideas/_sidebar (0.1ms)
+Completed in 27ms (View: 17, DB: 0) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#create (for 127.0.0.1 at 2009-10-07 16:09:31) [POST]
+  Parameters: {"idea"=>{"title"=>"", "description"=>""}, "authenticity_token"=>"AdOHB5+Pol3+L7sbFWwwAtZVCLNv8vWTAsGbTjP5cpY="}
+Rendering template within layouts/application
+Rendering ideas/new
+Rendered ideas/_form (7.4ms)
+Rendered ideas/_sidebar (0.8ms)
+Completed in 53ms (View: 42, DB: 0) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:09:40) [GET]
+  [4;36;1mIdea Load (0.6ms)[0m   [0;1mSELECT * FROM "ideas" LIMIT 10 OFFSET 0[0m
+Rendering template within layouts/application
+Rendering ideas/index
+Rendered ideas/_sidebar (0.1ms)
+Completed in 72ms (View: 65, DB: 1) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 16:09:45) [GET]
+Rendering template within layouts/application
+Rendering ideas/new
+Rendered ideas/_form (4.5ms)
+Rendered ideas/_sidebar (0.5ms)
+Completed in 23ms (View: 10, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:09:47) [GET]
+  [4;35;1mIdea Load (0.7ms)[0m   [0mSELECT * FROM "ideas" LIMIT 10 OFFSET 0[0m
+Rendering template within layouts/application
+Rendering ideas/index
+Rendered ideas/_sidebar (0.1ms)
+Completed in 19ms (View: 11, DB: 1) | 200 OK [http://localhost/ideas]
