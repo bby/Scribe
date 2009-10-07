@@ -946,3 +946,19 @@ Rendering template within layouts/application
 Rendering ideas/index
 Rendered ideas/_sidebar (0.1ms)
 Completed in 19ms (View: 11, DB: 1) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:21:26) [GET]
+  [4;36;1mIdea Load (1.0ms)[0m   [0;1mSELECT * FROM "ideas" LIMIT 10 OFFSET 0[0m
+Rendering template within layouts/application
+Rendering ideas/index
+Rendered ideas/_sidebar (0.8ms)
+Completed in 131ms (View: 122, DB: 1) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:21:28) [GET]
+  [4;35;1mIdea Load (0.7ms)[0m   [0mSELECT * FROM "ideas" LIMIT 10 OFFSET 0[0m
+Rendering template within layouts/application
+Rendering ideas/index
+Rendered ideas/_sidebar (0.1ms)
+Completed in 18ms (View: 11, DB: 1) | 200 OK [http://localhost/]

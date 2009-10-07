@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   
   # Authorization plugin
-  acts_as_authorized_user
-  acts_as_authorizable
+  #acts_as_authorized_user
+  #acts_as_authorizable
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
