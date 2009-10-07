@@ -1,0 +1,42 @@
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:25:35) [GET]
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: ideas: SELECT * FROM "ideas"  LIMIT 10 OFFSET 0):
+  /Users/tomburton/.gem/ruby/1.8/gems/mislav-will_paginate-2.3.11/lib/will_paginate/finder.rb:82:in `send'
+  /Users/tomburton/.gem/ruby/1.8/gems/mislav-will_paginate-2.3.11/lib/will_paginate/finder.rb:82:in `paginate'
+  /Users/tomburton/.gem/ruby/1.8/gems/mislav-will_paginate-2.3.11/lib/will_paginate/collection.rb:87:in `create'
+  /Users/tomburton/.gem/ruby/1.8/gems/mislav-will_paginate-2.3.11/lib/will_paginate/finder.rb:76:in `paginate'
+  app/controllers/ideas_controller.rb:5:in `index'
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:26:01) [GET]
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 23ms (View: 20, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:26:03) [GET]
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:26:04) [GET]
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 9ms (View: 3, DB: 0) | 200 OK [http://localhost/ideas]
+
+
+Processing IdeasController#new (for 127.0.0.1 at 2009-10-07 16:26:05) [GET]
+Rendering template within layouts/application
+Rendering ideas/new
+Completed in 25ms (View: 22, DB: 0) | 200 OK [http://localhost/ideas/new]
+
+
+Processing IdeasController#index (for 127.0.0.1 at 2009-10-07 16:26:06) [GET]
+Rendering template within layouts/application
+Rendering ideas/index
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://localhost/ideas]

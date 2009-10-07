@@ -1,9 +1,10 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include Authentication
-  include Authentication::ByPassword
-  include Authentication::ByCookieToken
+  include ::Authentication
+  include ::Authentication::ByPassword
+  include ::Authentication::ByCookieToken
+  include ::Authorization::AasmRoles
   
   # Authorization plugin
   #acts_as_authorized_user
